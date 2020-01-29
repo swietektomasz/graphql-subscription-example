@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-function Login({ user, setUser }) {
+function Login({ setUser }) {
+  const [userInput, setUserInput] = useState('');
   return (
     <div>
       <label htmlFor="username">
@@ -9,21 +10,22 @@ function Login({ user, setUser }) {
         <input
           type="text"
           name="username"
-          value={user}
-          onChange={(event) => setUser(event.target.value)}
+          value={userInput}
+          onChange={(event) => setUserInput(event.target.value)}
         />
       </label>
+      <button type="button" onClick={() => setUser(userInput)}>
+        Set username
+      </button>
     </div>
   );
 }
 
 Login.propTypes = {
-  user: PropTypes.string,
   setUser: PropTypes.func,
 };
 
 Login.defaultProps = {
-  user: '',
   setUser: () => {},
 };
 
