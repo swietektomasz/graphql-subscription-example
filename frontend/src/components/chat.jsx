@@ -6,7 +6,8 @@ import ChatBox from './chatbox';
 import { MESSAGE_SENT_SUBSCRIPTION } from '../graphql/graphql';
 
 export default function ChatWindow() {
-  const [user, setUser] = useState('');
+  const initialState = () => window.localStorage.getItem('savedUsername') || '';
+  const [user, setUser] = useState(initialState);
   const [messages, setMessages] = useState([]);
   const { data } = useSubscription(MESSAGE_SENT_SUBSCRIPTION);
 
@@ -16,9 +17,24 @@ export default function ChatWindow() {
     }
   }, [data]);
 
+  useEffect(() => {
+    window.localStorage.setItem('savedUsername', user);
+  }, [user]);
+
   return (
     <div>
       {!user && <Login user={user} setUser={setUser} />}
+      {user && (
+        <button
+          type="button"
+          onClick={() => {
+            setUser('');
+            window.localStorage.setItem('savedUsername', user);
+          }}
+        >
+          Reset user
+        </button>
+      )}
       <ChatBox user={user} />
       {messages.map(({ messageSent: { message, id } }) => (
         <div key={id}>{message}</div>
