@@ -21,21 +21,21 @@ git clone https://github.com/ammezie/graphql-chat-app.git
 After cloning, run:
 
 ```bash
-npm install
+yarn install
 ```
 
 ```bash
-npm run dev
+yarn dev
 ```
 
 ## Frontend setup
 
 ```bash
-npm install
+yarn install
 ```
 
 ```bash
-npm run dev
+yarn dev
 ```
 
 The server will be running on [http://localhost:8000](http://localhost:8000).
